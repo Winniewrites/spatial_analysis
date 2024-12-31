@@ -56,8 +56,8 @@ print(f"Suitability index saved to {output_file}")
 # Visualization (optional)
 import matplotlib.pyplot as plt
 
-plt.imshow(suitability_index, cmap="YlGn", interpolation="nearest")
-plt.colorbar(label="Suitability Index")
+plt.imshow(suitability_index, cmap="YlGn", interpolation= "nearest")
+plt.colorbar(label="Suitability Index"c)
 plt.title("Suitability Model")
 plt.xlabel("Longitude")
 plt.ylabel("Latitude")

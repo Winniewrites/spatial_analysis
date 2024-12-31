@@ -17,9 +17,9 @@ var temperatureKenya = temperature.clip(kenya);
 
 // Visualization parameters for temperature
 var temperatureVis = {
-  min: 20, // Minimum temperature for visualization
+  min: 10, // Minimum temperature for visualization
   max: 40, // Maximum temperature for visualization
-  palette: ['blue', 'green', 'yellow', 'orange', 'red'] // Color palette
+  palette: ['blue', 'green', 'yellow', 'orange', 'red'] 
 };
 
 // Add the temperature layer to the map with visualization parameters
@@ -28,12 +28,10 @@ Map.addLayer(temperatureKenya, temperatureVis, 'Temperature');
 
 // Reclassify the temperature into 7 classes between 15°C and 40°C
 var reclassifiedTemperature = temperatureKenya.expression(
-  "(b(0) < 15) ? 1 : " +  // Below 15°C
-  "(b(0) >= 15 && b(0) < 20) ? 2 : " + // 15–20°C
-  "(b(0) >= 20 && b(0) < 25) ? 3 : " + // 20–25°C
-  "(b(0) >= 25 && b(0) < 30) ? 4 : " + // 25–30°C
-  "(b(0) >= 30 && b(0) < 35) ? 5 : " + // 30–35°C
-  "(b(0) >= 35 && b(0) <= 40) ? 6 : " + // 35–40°C
+  "(b(0) < 10) ? 1 : " +  // Below 15°C
+  "(b(0) >= 10 && b(0) < 20) ? 2 : " + // 15–20°C
+  "(b(0) >= 20 && b(0) < 30) ? 3 : " + // 20–25°C
+  "(b(0) >= 30 && b(0) < 40) ? 4 : " + // 25–30°C
   "7", // Above 40°C
   {'b(0)': temperatureKenya}
 );
@@ -45,7 +43,7 @@ var reclassifiedTemperatureKenya = reclassifiedTemperature.clip(kenya);
 var reclassifiedTemperatureVis = {
   min: 1,
   max: 7,
-  palette: ['blue', 'cyan', 'green', 'yellow', 'orange', 'red', 'brown'] // 7-class palette
+  palette: ['blue', 'green', 'yellow', 'orange', 'red'] 
 };
 
 // Add the reclassified temperature layer to the map
@@ -56,7 +54,7 @@ Map.addLayer(reclassifiedTemperatureKenya, reclassifiedTemperatureVis, 'Reclassi
 var stats = reclassifiedTemperatureKenya.reduceRegion({
   reducer: ee.Reducer.minMax(),
   geometry: kenya.geometry(),
-  scale: 1000,
+  scale: 250,
   maxPixels: 1e13
 });
 print('Reclassified Temperature Stats (Kenya):', stats);
@@ -68,7 +66,7 @@ Export.image.toDrive({
   folder: 'pineapple',
   fileNamePrefix: 'reclassified_temperature',
   region: kenya.geometry(),
-  scale: 1000,  // Set resolution
+  scale: 250,  // Set resolution
   crs: 'EPSG:4326',
   maxPixels: 1e8
 });

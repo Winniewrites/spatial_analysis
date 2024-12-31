@@ -10,7 +10,7 @@ var rasterizedSoil = soilData
   });
 
 // Visualize the rasterized soil data
-Map.addLayer(rasterizedSoil, {min: 1, max: 5, palette: ['brown', 'orange', 'yellow', 'green']}, 'Rasterized Soil');
+Map.addLayer(rasterizedSoil, {min: 1, max: 4, palette: ['brown', 'orange', 'yellow', 'green']}, 'Rasterized Soil');
 
 // Define reclassification values as a dictionary
 var soilReclassification = {
@@ -27,16 +27,15 @@ var toValues = [10, 20, 30, 40];
 var reclassifiedSoil = rasterizedSoil.remap(fromValues, toValues);
 
 // Visualize the reclassified soil data
-Map.addLayer(reclassifiedSoil, {min: 10, max: 40, palette: ['brown', 'orange', 'yellow', 'green', 'blue']}, 'Reclassified Soil');
+Map.addLayer(reclassifiedSoil, {min: 10, max: 40, palette: ['brown', 'orange', 'green', 'blue']}, 'Reclassified Soil');
 Map.setCenter(37.9062, 0.0236, 6);  
 
 // Export the reclassified soil data
-Export.image.toDrive({
+Export.image.toAsset({
   image: reclassifiedSoil,
-  description: 'Reclassified_Soil',
-  folder: 'pineapple',
-  fileNamePrefix: 'reclassified_soil',
-  scale: 20000,  // Set resolution
+  description: 'Reclassified_Soil2',
+  assetId: 'projects/ee-wonyancha22/assets/reclassified_soil2',
+  scale: 250,
   crs: 'EPSG:4326',
-  maxPixels: 1e8
+  maxPixels: 1e13
 });
